@@ -19,16 +19,15 @@ It supports multi-role access such as **Staff** and **Customer**, allowing users
 
 ### 1. Clone the Repository
 `git clone https://github.com/yeremiaimanuel/DriveNow-CarRentalApp.git`
-
-2. Restore the Database
+### 2. Restore the Database
 - Open SQL Server Management Studio (SSMS)
 - Right-click Databases → Import Data-tier Application
 - Browse to the file: db_drivenow.bacpac
 - Finish the wizard to create the db_drivenow database
-3. Configure the Connection
+### 3. Configure the Connection
 In DB/dbConnection.cs, modify the connection string:
 `string connectionString = "Data Source=YOUR_SERVER_NAME;Initial Catalog=db_drivenow;Integrated Security=True;TrustServerCertificate=True";`
-4. Run the Application
+### 4. Run the Application
 - Open DriveNow.sln in Visual Studio
 - Build the solution: Ctrl + Shift + B
 - Run the application: F5
