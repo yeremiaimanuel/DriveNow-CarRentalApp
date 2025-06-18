@@ -18,8 +18,7 @@ It supports multi-role access such as **Staff** and **Customer**, allowing users
 ## 🚀 Getting Started
 
 ### 1. Clone the Repository
-  ```bash
-  git clone https://github.com/yeremiaimanuel/DriveNow-CarRentalApp.git
+  ```bash git clone https://github.com/yeremiaimanuel/DriveNow-CarRentalApp.git
 
 2. Restore the Database
 - Open SQL Server Management Studio (SSMS)
