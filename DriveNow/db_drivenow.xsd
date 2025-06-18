@@ -1,0 +1,1038 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="db_drivenow" targetNamespace="http://tempuri.org/db_drivenowDataSet.xsd" xmlns:mstns="http://tempuri.org/db_drivenowDataSet.xsd" xmlns="http://tempuri.org/db_drivenowDataSet.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections>
+          <Connection AppSettingsObjectName="Settings" AppSettingsPropertyName="db_drivenowConnectionString" ConnectionStringObject="" IsAppSettingsProperty="true" Modifier="Assembly" Name="db_drivenowConnectionString (Settings)" ParameterPrefix="@" PropertyReference="ApplicationSettings.DriveNow.Properties.Settings.GlobalReference.Default.db_drivenowConnectionString" Provider="System.Data.SqlClient" />
+        </Connections>
+        <Tables>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="BookingTableAdapter" GeneratorDataComponentClassName="BookingTableAdapter" Name="Booking" UserDataComponentName="BookingTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="db_drivenowConnectionString (Settings)" DbObjectType="Unknown" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="true">
+                    <CommandText>SELECT 
+    b.id_booking,
+    u.nama AS nama_pelanggan,
+    m.merk_mobil,
+    b.tanggal_mulai,
+    b.tanggal_selesai,
+    b.status_booking,
+    b.durasi_hari
+FROM Booking b
+JOIN Users u ON b.id_user = u.id_user
+JOIN Mobil m ON b.id_mobil = m.id_mobil</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="id_booking" DataSetColumn="id_booking" />
+              <Mapping SourceColumn="tanggal_mulai" DataSetColumn="tanggal_mulai" />
+              <Mapping SourceColumn="tanggal_selesai" DataSetColumn="tanggal_selesai" />
+              <Mapping SourceColumn="durasi_hari" DataSetColumn="durasi_hari" />
+              <Mapping SourceColumn="status_booking" DataSetColumn="status_booking" />
+              <Mapping SourceColumn="nama_pelanggan" DataSetColumn="nama_pelanggan" />
+              <Mapping SourceColumn="merk_mobil" DataSetColumn="merk_mobil" />
+            </Mappings>
+            <Sources>
+              <DbSource ConnectionRef="db_drivenowConnectionString (Settings)" DbObjectType="Unknown" FillMethodModifier="Public" FillMethodName="FillBy" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="GetDataBy" GeneratorSourceName="FillBy" GetMethodModifier="Public" GetMethodName="GetDataBy" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy" UserSourceName="FillBy">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="true">
+                    <CommandText>SELECT 
+    FORMAT(t.tanggal_transaksi, 'yyyy-MM') AS bulan,
+    COUNT(DISTINCT b.id_booking) AS total_booking,
+    COUNT(DISTINCT t.id_transaksi) AS total_transaksi,
+    SUM(t.total_pembayaran) AS total_pendapatan,
+    COUNT(DISTINCT ul.id_ulasan) AS total_ulasan
+FROM Transaksi t
+JOIN Booking b ON t.id_booking = b.id_booking
+LEFT JOIN Ulasan ul ON t.id_user = ul.id_user
+GROUP BY FORMAT(t.tanggal_transaksi, 'yyyy-MM')
+</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </Sources>
+          </TableAdapter>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="MobilTableAdapter" GeneratorDataComponentClassName="MobilTableAdapter" Name="Mobil" UserDataComponentName="MobilTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="db_drivenowConnectionString (Settings)" DbObjectName="db_drivenow.dbo.Mobil" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetData" UserSourceName="Fill">
+                <DeleteCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>DELETE FROM [dbo].[Mobil] WHERE (([id_mobil] = @Original_id_mobil) AND ((@IsNull_merk_mobil = 1 AND [merk_mobil] IS NULL) OR ([merk_mobil] = @Original_merk_mobil)) AND ((@IsNull_warna = 1 AND [warna] IS NULL) OR ([warna] = @Original_warna)) AND ((@IsNull_kategori = 1 AND [kategori] IS NULL) OR ([kategori] = @Original_kategori)) AND ((@IsNull_jenis_bbm = 1 AND [jenis_bbm] IS NULL) OR ([jenis_bbm] = @Original_jenis_bbm)) AND ((@IsNull_tipe_transmisi = 1 AND [tipe_transmisi] IS NULL) OR ([tipe_transmisi] = @Original_tipe_transmisi)) AND ((@IsNull_kapasitas = 1 AND [kapasitas] IS NULL) OR ([kapasitas] = @Original_kapasitas)) AND ((@IsNull_harga_sewa_per_hari = 1 AND [harga_sewa_per_hari] IS NULL) OR ([harga_sewa_per_hari] = @Original_harga_sewa_per_hari)) AND ((@IsNull_status_mobil = 1 AND [status_mobil] IS NULL) OR ([status_mobil] = @Original_status_mobil)) AND ((@IsNull_url_foto_mobil = 1 AND [url_foto_mobil] IS NULL) OR ([url_foto_mobil] = @Original_url_foto_mobil)))</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@Original_id_mobil" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="id_mobil" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_merk_mobil" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="merk_mobil" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@Original_merk_mobil" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="merk_mobil" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_warna" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="warna" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@Original_warna" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="warna" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_kategori" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="kategori" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@Original_kategori" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="kategori" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_jenis_bbm" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="jenis_bbm" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@Original_jenis_bbm" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="jenis_bbm" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_tipe_transmisi" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="tipe_transmisi" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@Original_tipe_transmisi" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="tipe_transmisi" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_kapasitas" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="kapasitas" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Byte" Direction="Input" ParameterName="@Original_kapasitas" Precision="0" ProviderType="TinyInt" Scale="0" Size="0" SourceColumn="kapasitas" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_harga_sewa_per_hari" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="harga_sewa_per_hari" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Decimal" Direction="Input" ParameterName="@Original_harga_sewa_per_hari" Precision="12" ProviderType="Decimal" Scale="2" Size="0" SourceColumn="harga_sewa_per_hari" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_status_mobil" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="status_mobil" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@Original_status_mobil" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="status_mobil" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_url_foto_mobil" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="url_foto_mobil" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@Original_url_foto_mobil" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="url_foto_mobil" SourceColumnNullMapping="false" SourceVersion="Original" />
+                    </Parameters>
+                  </DbCommand>
+                </DeleteCommand>
+                <InsertCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>INSERT INTO [dbo].[Mobil] ([id_mobil], [merk_mobil], [warna], [kategori], [jenis_bbm], [tipe_transmisi], [kapasitas], [harga_sewa_per_hari], [status_mobil], [url_foto_mobil]) VALUES (@id_mobil, @merk_mobil, @warna, @kategori, @jenis_bbm, @tipe_transmisi, @kapasitas, @harga_sewa_per_hari, @status_mobil, @url_foto_mobil);
+SELECT id_mobil, merk_mobil, warna, kategori, jenis_bbm, tipe_transmisi, kapasitas, harga_sewa_per_hari, status_mobil, url_foto_mobil FROM Mobil WHERE (id_mobil = @id_mobil)</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@id_mobil" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="id_mobil" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@merk_mobil" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="merk_mobil" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@warna" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="warna" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@kategori" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="kategori" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@jenis_bbm" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="jenis_bbm" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@tipe_transmisi" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="tipe_transmisi" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Byte" Direction="Input" ParameterName="@kapasitas" Precision="0" ProviderType="TinyInt" Scale="0" Size="0" SourceColumn="kapasitas" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Decimal" Direction="Input" ParameterName="@harga_sewa_per_hari" Precision="12" ProviderType="Decimal" Scale="2" Size="0" SourceColumn="harga_sewa_per_hari" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@status_mobil" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="status_mobil" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@url_foto_mobil" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="url_foto_mobil" SourceColumnNullMapping="false" SourceVersion="Current" />
+                    </Parameters>
+                  </DbCommand>
+                </InsertCommand>
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>SELECT id_mobil, merk_mobil, warna, kategori, jenis_bbm, tipe_transmisi, kapasitas, harga_sewa_per_hari, status_mobil, url_foto_mobil FROM dbo.Mobil</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+                <UpdateCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>UPDATE [dbo].[Mobil] SET [id_mobil] = @id_mobil, [merk_mobil] = @merk_mobil, [warna] = @warna, [kategori] = @kategori, [jenis_bbm] = @jenis_bbm, [tipe_transmisi] = @tipe_transmisi, [kapasitas] = @kapasitas, [harga_sewa_per_hari] = @harga_sewa_per_hari, [status_mobil] = @status_mobil, [url_foto_mobil] = @url_foto_mobil WHERE (([id_mobil] = @Original_id_mobil) AND ((@IsNull_merk_mobil = 1 AND [merk_mobil] IS NULL) OR ([merk_mobil] = @Original_merk_mobil)) AND ((@IsNull_warna = 1 AND [warna] IS NULL) OR ([warna] = @Original_warna)) AND ((@IsNull_kategori = 1 AND [kategori] IS NULL) OR ([kategori] = @Original_kategori)) AND ((@IsNull_jenis_bbm = 1 AND [jenis_bbm] IS NULL) OR ([jenis_bbm] = @Original_jenis_bbm)) AND ((@IsNull_tipe_transmisi = 1 AND [tipe_transmisi] IS NULL) OR ([tipe_transmisi] = @Original_tipe_transmisi)) AND ((@IsNull_kapasitas = 1 AND [kapasitas] IS NULL) OR ([kapasitas] = @Original_kapasitas)) AND ((@IsNull_harga_sewa_per_hari = 1 AND [harga_sewa_per_hari] IS NULL) OR ([harga_sewa_per_hari] = @Original_harga_sewa_per_hari)) AND ((@IsNull_status_mobil = 1 AND [status_mobil] IS NULL) OR ([status_mobil] = @Original_status_mobil)) AND ((@IsNull_url_foto_mobil = 1 AND [url_foto_mobil] IS NULL) OR ([url_foto_mobil] = @Original_url_foto_mobil)));
+SELECT id_mobil, merk_mobil, warna, kategori, jenis_bbm, tipe_transmisi, kapasitas, harga_sewa_per_hari, status_mobil, url_foto_mobil FROM Mobil WHERE (id_mobil = @id_mobil)</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@id_mobil" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="id_mobil" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@merk_mobil" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="merk_mobil" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@warna" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="warna" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@kategori" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="kategori" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@jenis_bbm" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="jenis_bbm" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@tipe_transmisi" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="tipe_transmisi" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Byte" Direction="Input" ParameterName="@kapasitas" Precision="0" ProviderType="TinyInt" Scale="0" Size="0" SourceColumn="kapasitas" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Decimal" Direction="Input" ParameterName="@harga_sewa_per_hari" Precision="12" ProviderType="Decimal" Scale="2" Size="0" SourceColumn="harga_sewa_per_hari" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@status_mobil" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="status_mobil" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@url_foto_mobil" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="url_foto_mobil" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@Original_id_mobil" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="id_mobil" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_merk_mobil" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="merk_mobil" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@Original_merk_mobil" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="merk_mobil" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_warna" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="warna" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@Original_warna" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="warna" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_kategori" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="kategori" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@Original_kategori" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="kategori" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_jenis_bbm" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="jenis_bbm" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@Original_jenis_bbm" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="jenis_bbm" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_tipe_transmisi" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="tipe_transmisi" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@Original_tipe_transmisi" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="tipe_transmisi" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_kapasitas" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="kapasitas" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Byte" Direction="Input" ParameterName="@Original_kapasitas" Precision="0" ProviderType="TinyInt" Scale="0" Size="0" SourceColumn="kapasitas" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_harga_sewa_per_hari" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="harga_sewa_per_hari" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Decimal" Direction="Input" ParameterName="@Original_harga_sewa_per_hari" Precision="12" ProviderType="Decimal" Scale="2" Size="0" SourceColumn="harga_sewa_per_hari" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_status_mobil" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="status_mobil" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@Original_status_mobil" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="status_mobil" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_url_foto_mobil" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="url_foto_mobil" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@Original_url_foto_mobil" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="url_foto_mobil" SourceColumnNullMapping="false" SourceVersion="Original" />
+                    </Parameters>
+                  </DbCommand>
+                </UpdateCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="id_mobil" DataSetColumn="id_mobil" />
+              <Mapping SourceColumn="merk_mobil" DataSetColumn="merk_mobil" />
+              <Mapping SourceColumn="warna" DataSetColumn="warna" />
+              <Mapping SourceColumn="kategori" DataSetColumn="kategori" />
+              <Mapping SourceColumn="jenis_bbm" DataSetColumn="jenis_bbm" />
+              <Mapping SourceColumn="tipe_transmisi" DataSetColumn="tipe_transmisi" />
+              <Mapping SourceColumn="kapasitas" DataSetColumn="kapasitas" />
+              <Mapping SourceColumn="harga_sewa_per_hari" DataSetColumn="harga_sewa_per_hari" />
+              <Mapping SourceColumn="status_mobil" DataSetColumn="status_mobil" />
+              <Mapping SourceColumn="url_foto_mobil" DataSetColumn="url_foto_mobil" />
+            </Mappings>
+            <Sources>
+              <DbSource ConnectionRef="db_drivenowConnectionString (Settings)" DbObjectName="db_drivenow.dbo.Mobil" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="FillBy" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="GetDataBy" GeneratorSourceName="FillBy" GetMethodModifier="Public" GetMethodName="GetDataBy" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy" UserSourceName="FillBy">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="true">
+                    <CommandText>SELECT id_mobil, merk_mobil, warna, kategori, jenis_bbm, tipe_transmisi, kapasitas, harga_sewa_per_hari, status_mobil, url_foto_mobil FROM dbo.Mobil</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </Sources>
+          </TableAdapter>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="PelangganTableAdapter" GeneratorDataComponentClassName="PelangganTableAdapter" Name="Pelanggan" UserDataComponentName="PelangganTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="db_drivenowConnectionString (Settings)" DbObjectName="db_drivenow.dbo.Pelanggan" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetData" UserSourceName="Fill">
+                <DeleteCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>DELETE FROM [dbo].[Pelanggan] WHERE (([id_user] = @Original_id_user) AND ((@IsNull_alamat = 1 AND [alamat] IS NULL) OR ([alamat] = @Original_alamat)) AND ((@IsNull_no_hp = 1 AND [no_hp] IS NULL) OR ([no_hp] = @Original_no_hp)) AND ((@IsNull_no_sim = 1 AND [no_sim] IS NULL) OR ([no_sim] = @Original_no_sim)) AND ((@IsNull_username = 1 AND [username] IS NULL) OR ([username] = @Original_username)))</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@Original_id_user" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="id_user" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_alamat" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="alamat" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@Original_alamat" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="alamat" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_no_hp" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="no_hp" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@Original_no_hp" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="no_hp" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_no_sim" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="no_sim" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@Original_no_sim" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="no_sim" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_username" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="username" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@Original_username" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="username" SourceColumnNullMapping="false" SourceVersion="Original" />
+                    </Parameters>
+                  </DbCommand>
+                </DeleteCommand>
+                <InsertCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>INSERT INTO [dbo].[Pelanggan] ([id_user], [alamat], [no_hp], [no_sim], [username]) VALUES (@id_user, @alamat, @no_hp, @no_sim, @username);
+SELECT id_user, alamat, no_hp, no_sim, username FROM Pelanggan WHERE (id_user = @id_user)</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@id_user" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="id_user" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@alamat" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="alamat" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@no_hp" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="no_hp" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@no_sim" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="no_sim" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@username" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="username" SourceColumnNullMapping="false" SourceVersion="Current" />
+                    </Parameters>
+                  </DbCommand>
+                </InsertCommand>
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>SELECT id_user, alamat, no_hp, no_sim, username FROM dbo.Pelanggan</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+                <UpdateCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>UPDATE [dbo].[Pelanggan] SET [id_user] = @id_user, [alamat] = @alamat, [no_hp] = @no_hp, [no_sim] = @no_sim, [username] = @username WHERE (([id_user] = @Original_id_user) AND ((@IsNull_alamat = 1 AND [alamat] IS NULL) OR ([alamat] = @Original_alamat)) AND ((@IsNull_no_hp = 1 AND [no_hp] IS NULL) OR ([no_hp] = @Original_no_hp)) AND ((@IsNull_no_sim = 1 AND [no_sim] IS NULL) OR ([no_sim] = @Original_no_sim)) AND ((@IsNull_username = 1 AND [username] IS NULL) OR ([username] = @Original_username)));
+SELECT id_user, alamat, no_hp, no_sim, username FROM Pelanggan WHERE (id_user = @id_user)</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@id_user" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="id_user" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@alamat" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="alamat" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@no_hp" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="no_hp" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@no_sim" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="no_sim" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@username" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="username" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@Original_id_user" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="id_user" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_alamat" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="alamat" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@Original_alamat" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="alamat" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_no_hp" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="no_hp" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@Original_no_hp" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="no_hp" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_no_sim" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="no_sim" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@Original_no_sim" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="no_sim" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_username" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="username" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@Original_username" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="username" SourceColumnNullMapping="false" SourceVersion="Original" />
+                    </Parameters>
+                  </DbCommand>
+                </UpdateCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="id_user" DataSetColumn="id_user" />
+              <Mapping SourceColumn="alamat" DataSetColumn="alamat" />
+              <Mapping SourceColumn="no_hp" DataSetColumn="no_hp" />
+              <Mapping SourceColumn="no_sim" DataSetColumn="no_sim" />
+              <Mapping SourceColumn="username" DataSetColumn="username" />
+            </Mappings>
+            <Sources />
+          </TableAdapter>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="PembayaranTableAdapter" GeneratorDataComponentClassName="PembayaranTableAdapter" Name="Pembayaran" UserDataComponentName="PembayaranTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="db_drivenowConnectionString (Settings)" DbObjectType="Unknown" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="true">
+                    <CommandText>SELECT 
+    p.id_pembayaran,
+    p.id_transaksi,
+    t.id_booking,
+    u.nama AS nama_pelanggan,
+    p.tanggal_pembayaran,
+    p.metode_pembayaran,
+    p.nama_bank_pengirim,
+    p.bukti_pembayaran,
+    p.status_pembayaran
+FROM Pembayaran p
+JOIN Transaksi t ON p.id_transaksi = t.id_transaksi
+JOIN Users u ON t.id_user = u.id_user
+</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="id_pembayaran" DataSetColumn="id_pembayaran" />
+              <Mapping SourceColumn="id_transaksi" DataSetColumn="id_transaksi" />
+              <Mapping SourceColumn="tanggal_pembayaran" DataSetColumn="tanggal_pembayaran" />
+              <Mapping SourceColumn="metode_pembayaran" DataSetColumn="metode_pembayaran" />
+              <Mapping SourceColumn="nama_bank_pengirim" DataSetColumn="nama_bank_pengirim" />
+              <Mapping SourceColumn="bukti_pembayaran" DataSetColumn="bukti_pembayaran" />
+              <Mapping SourceColumn="status_pembayaran" DataSetColumn="status_pembayaran" />
+              <Mapping SourceColumn="id_booking" DataSetColumn="id_booking" />
+              <Mapping SourceColumn="nama_pelanggan" DataSetColumn="nama_pelanggan" />
+            </Mappings>
+            <Sources>
+              <DbSource ConnectionRef="db_drivenowConnectionString (Settings)" DbObjectType="Unknown" FillMethodModifier="Public" FillMethodName="FillBy" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="GetDataBy" GeneratorSourceName="FillBy" GetMethodModifier="Public" GetMethodName="GetDataBy" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy" UserSourceName="FillBy">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="true">
+                    <CommandText>SELECT 
+    p.id_pembayaran,
+    p.id_transaksi,
+    t.id_booking,
+    u.nama AS nama_pelanggan,
+    p.tanggal_pembayaran,
+    p.metode_pembayaran,
+    p.nama_bank_pengirim,
+    p.status_pembayaran
+FROM Pembayaran p
+JOIN Transaksi t ON p.id_transaksi = t.id_transaksi
+JOIN Users u ON t.id_user = u.id_user</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </Sources>
+          </TableAdapter>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="StaffTableAdapter" GeneratorDataComponentClassName="StaffTableAdapter" Name="Staff" UserDataComponentName="StaffTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="db_drivenowConnectionString (Settings)" DbObjectName="db_drivenow.dbo.Staff" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetData" UserSourceName="Fill">
+                <DeleteCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>DELETE FROM [dbo].[Staff] WHERE (([id_user] = @Original_id_user) AND ((@IsNull_jabatan = 1 AND [jabatan] IS NULL) OR ([jabatan] = @Original_jabatan)))</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@Original_id_user" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="id_user" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_jabatan" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="jabatan" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@Original_jabatan" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="jabatan" SourceColumnNullMapping="false" SourceVersion="Original" />
+                    </Parameters>
+                  </DbCommand>
+                </DeleteCommand>
+                <InsertCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>INSERT INTO [dbo].[Staff] ([id_user], [jabatan]) VALUES (@id_user, @jabatan);
+SELECT id_user, jabatan FROM Staff WHERE (id_user = @id_user)</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@id_user" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="id_user" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@jabatan" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="jabatan" SourceColumnNullMapping="false" SourceVersion="Current" />
+                    </Parameters>
+                  </DbCommand>
+                </InsertCommand>
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>SELECT id_user, jabatan FROM dbo.Staff</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+                <UpdateCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>UPDATE [dbo].[Staff] SET [id_user] = @id_user, [jabatan] = @jabatan WHERE (([id_user] = @Original_id_user) AND ((@IsNull_jabatan = 1 AND [jabatan] IS NULL) OR ([jabatan] = @Original_jabatan)));
+SELECT id_user, jabatan FROM Staff WHERE (id_user = @id_user)</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@id_user" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="id_user" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@jabatan" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="jabatan" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@Original_id_user" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="id_user" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_jabatan" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="jabatan" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@Original_jabatan" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="jabatan" SourceColumnNullMapping="false" SourceVersion="Original" />
+                    </Parameters>
+                  </DbCommand>
+                </UpdateCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="id_user" DataSetColumn="id_user" />
+              <Mapping SourceColumn="jabatan" DataSetColumn="jabatan" />
+            </Mappings>
+            <Sources />
+          </TableAdapter>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="TransaksiTableAdapter" GeneratorDataComponentClassName="TransaksiTableAdapter" Name="Transaksi" UserDataComponentName="TransaksiTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="db_drivenowConnectionString (Settings)" DbObjectName="db_drivenow.dbo.Transaksi" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetData" UserSourceName="Fill">
+                <DeleteCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>DELETE FROM [dbo].[Transaksi] WHERE (([id_transaksi] = @Original_id_transaksi) AND ((@IsNull_id_booking = 1 AND [id_booking] IS NULL) OR ([id_booking] = @Original_id_booking)) AND ((@IsNull_id_user = 1 AND [id_user] IS NULL) OR ([id_user] = @Original_id_user)) AND ((@IsNull_tanggal_transaksi = 1 AND [tanggal_transaksi] IS NULL) OR ([tanggal_transaksi] = @Original_tanggal_transaksi)) AND ((@IsNull_total_pembayaran = 1 AND [total_pembayaran] IS NULL) OR ([total_pembayaran] = @Original_total_pembayaran)))</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@Original_id_transaksi" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="id_transaksi" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_id_booking" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="id_booking" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@Original_id_booking" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="id_booking" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_id_user" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="id_user" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@Original_id_user" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="id_user" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_tanggal_transaksi" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="tanggal_transaksi" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Date" Direction="Input" ParameterName="@Original_tanggal_transaksi" Precision="0" ProviderType="Date" Scale="0" Size="0" SourceColumn="tanggal_transaksi" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_total_pembayaran" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="total_pembayaran" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Decimal" Direction="Input" ParameterName="@Original_total_pembayaran" Precision="12" ProviderType="Decimal" Scale="2" Size="0" SourceColumn="total_pembayaran" SourceColumnNullMapping="false" SourceVersion="Original" />
+                    </Parameters>
+                  </DbCommand>
+                </DeleteCommand>
+                <InsertCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>INSERT INTO [dbo].[Transaksi] ([id_transaksi], [id_booking], [id_user], [tanggal_transaksi], [total_pembayaran]) VALUES (@id_transaksi, @id_booking, @id_user, @tanggal_transaksi, @total_pembayaran);
+SELECT id_transaksi, id_booking, id_user, tanggal_transaksi, total_pembayaran FROM Transaksi WHERE (id_transaksi = @id_transaksi)</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@id_transaksi" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="id_transaksi" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@id_booking" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="id_booking" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@id_user" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="id_user" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Date" Direction="Input" ParameterName="@tanggal_transaksi" Precision="0" ProviderType="Date" Scale="0" Size="0" SourceColumn="tanggal_transaksi" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Decimal" Direction="Input" ParameterName="@total_pembayaran" Precision="12" ProviderType="Decimal" Scale="2" Size="0" SourceColumn="total_pembayaran" SourceColumnNullMapping="false" SourceVersion="Current" />
+                    </Parameters>
+                  </DbCommand>
+                </InsertCommand>
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>SELECT id_transaksi, id_booking, id_user, tanggal_transaksi, total_pembayaran FROM dbo.Transaksi</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+                <UpdateCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>UPDATE [dbo].[Transaksi] SET [id_transaksi] = @id_transaksi, [id_booking] = @id_booking, [id_user] = @id_user, [tanggal_transaksi] = @tanggal_transaksi, [total_pembayaran] = @total_pembayaran WHERE (([id_transaksi] = @Original_id_transaksi) AND ((@IsNull_id_booking = 1 AND [id_booking] IS NULL) OR ([id_booking] = @Original_id_booking)) AND ((@IsNull_id_user = 1 AND [id_user] IS NULL) OR ([id_user] = @Original_id_user)) AND ((@IsNull_tanggal_transaksi = 1 AND [tanggal_transaksi] IS NULL) OR ([tanggal_transaksi] = @Original_tanggal_transaksi)) AND ((@IsNull_total_pembayaran = 1 AND [total_pembayaran] IS NULL) OR ([total_pembayaran] = @Original_total_pembayaran)));
+SELECT id_transaksi, id_booking, id_user, tanggal_transaksi, total_pembayaran FROM Transaksi WHERE (id_transaksi = @id_transaksi)</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@id_transaksi" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="id_transaksi" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@id_booking" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="id_booking" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@id_user" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="id_user" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Date" Direction="Input" ParameterName="@tanggal_transaksi" Precision="0" ProviderType="Date" Scale="0" Size="0" SourceColumn="tanggal_transaksi" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Decimal" Direction="Input" ParameterName="@total_pembayaran" Precision="12" ProviderType="Decimal" Scale="2" Size="0" SourceColumn="total_pembayaran" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@Original_id_transaksi" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="id_transaksi" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_id_booking" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="id_booking" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@Original_id_booking" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="id_booking" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_id_user" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="id_user" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@Original_id_user" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="id_user" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_tanggal_transaksi" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="tanggal_transaksi" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Date" Direction="Input" ParameterName="@Original_tanggal_transaksi" Precision="0" ProviderType="Date" Scale="0" Size="0" SourceColumn="tanggal_transaksi" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_total_pembayaran" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="total_pembayaran" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Decimal" Direction="Input" ParameterName="@Original_total_pembayaran" Precision="12" ProviderType="Decimal" Scale="2" Size="0" SourceColumn="total_pembayaran" SourceColumnNullMapping="false" SourceVersion="Original" />
+                    </Parameters>
+                  </DbCommand>
+                </UpdateCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="id_transaksi" DataSetColumn="id_transaksi" />
+              <Mapping SourceColumn="id_booking" DataSetColumn="id_booking" />
+              <Mapping SourceColumn="id_user" DataSetColumn="id_user" />
+              <Mapping SourceColumn="tanggal_transaksi" DataSetColumn="tanggal_transaksi" />
+              <Mapping SourceColumn="total_pembayaran" DataSetColumn="total_pembayaran" />
+            </Mappings>
+            <Sources />
+          </TableAdapter>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="UlasanTableAdapter" GeneratorDataComponentClassName="UlasanTableAdapter" Name="Ulasan" UserDataComponentName="UlasanTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="db_drivenowConnectionString (Settings)" DbObjectName="db_drivenow.dbo.Ulasan" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetData" UserSourceName="Fill">
+                <DeleteCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>DELETE FROM [dbo].[Ulasan] WHERE (([id_ulasan] = @Original_id_ulasan) AND ((@IsNull_id_user = 1 AND [id_user] IS NULL) OR ([id_user] = @Original_id_user)) AND ((@IsNull_id_mobil = 1 AND [id_mobil] IS NULL) OR ([id_mobil] = @Original_id_mobil)) AND ((@IsNull_rating = 1 AND [rating] IS NULL) OR ([rating] = @Original_rating)) AND ((@IsNull_tanggal_ulasan = 1 AND [tanggal_ulasan] IS NULL) OR ([tanggal_ulasan] = @Original_tanggal_ulasan)))</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@Original_id_ulasan" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="id_ulasan" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_id_user" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="id_user" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@Original_id_user" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="id_user" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_id_mobil" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="id_mobil" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@Original_id_mobil" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="id_mobil" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_rating" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="rating" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@Original_rating" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="rating" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_tanggal_ulasan" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="tanggal_ulasan" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Date" Direction="Input" ParameterName="@Original_tanggal_ulasan" Precision="0" ProviderType="Date" Scale="0" Size="0" SourceColumn="tanggal_ulasan" SourceColumnNullMapping="false" SourceVersion="Original" />
+                    </Parameters>
+                  </DbCommand>
+                </DeleteCommand>
+                <InsertCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>INSERT INTO [dbo].[Ulasan] ([id_ulasan], [id_user], [id_mobil], [komentar], [rating], [tanggal_ulasan]) VALUES (@id_ulasan, @id_user, @id_mobil, @komentar, @rating, @tanggal_ulasan);
+SELECT id_ulasan, id_user, id_mobil, komentar, rating, tanggal_ulasan FROM Ulasan WHERE (id_ulasan = @id_ulasan)</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@id_ulasan" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="id_ulasan" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@id_user" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="id_user" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@id_mobil" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="id_mobil" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@komentar" Precision="0" ProviderType="Text" Scale="0" Size="0" SourceColumn="komentar" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@rating" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="rating" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Date" Direction="Input" ParameterName="@tanggal_ulasan" Precision="0" ProviderType="Date" Scale="0" Size="0" SourceColumn="tanggal_ulasan" SourceColumnNullMapping="false" SourceVersion="Current" />
+                    </Parameters>
+                  </DbCommand>
+                </InsertCommand>
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>SELECT id_ulasan, id_user, id_mobil, komentar, rating, tanggal_ulasan FROM dbo.Ulasan</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+                <UpdateCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>UPDATE [dbo].[Ulasan] SET [id_ulasan] = @id_ulasan, [id_user] = @id_user, [id_mobil] = @id_mobil, [komentar] = @komentar, [rating] = @rating, [tanggal_ulasan] = @tanggal_ulasan WHERE (([id_ulasan] = @Original_id_ulasan) AND ((@IsNull_id_user = 1 AND [id_user] IS NULL) OR ([id_user] = @Original_id_user)) AND ((@IsNull_id_mobil = 1 AND [id_mobil] IS NULL) OR ([id_mobil] = @Original_id_mobil)) AND ((@IsNull_rating = 1 AND [rating] IS NULL) OR ([rating] = @Original_rating)) AND ((@IsNull_tanggal_ulasan = 1 AND [tanggal_ulasan] IS NULL) OR ([tanggal_ulasan] = @Original_tanggal_ulasan)));
+SELECT id_ulasan, id_user, id_mobil, komentar, rating, tanggal_ulasan FROM Ulasan WHERE (id_ulasan = @id_ulasan)</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@id_ulasan" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="id_ulasan" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@id_user" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="id_user" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@id_mobil" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="id_mobil" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@komentar" Precision="0" ProviderType="Text" Scale="0" Size="0" SourceColumn="komentar" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@rating" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="rating" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Date" Direction="Input" ParameterName="@tanggal_ulasan" Precision="0" ProviderType="Date" Scale="0" Size="0" SourceColumn="tanggal_ulasan" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@Original_id_ulasan" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="id_ulasan" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_id_user" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="id_user" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@Original_id_user" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="id_user" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_id_mobil" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="id_mobil" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@Original_id_mobil" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="id_mobil" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_rating" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="rating" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@Original_rating" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="rating" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_tanggal_ulasan" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="tanggal_ulasan" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Date" Direction="Input" ParameterName="@Original_tanggal_ulasan" Precision="0" ProviderType="Date" Scale="0" Size="0" SourceColumn="tanggal_ulasan" SourceColumnNullMapping="false" SourceVersion="Original" />
+                    </Parameters>
+                  </DbCommand>
+                </UpdateCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="id_ulasan" DataSetColumn="id_ulasan" />
+              <Mapping SourceColumn="id_user" DataSetColumn="id_user" />
+              <Mapping SourceColumn="id_mobil" DataSetColumn="id_mobil" />
+              <Mapping SourceColumn="komentar" DataSetColumn="komentar" />
+              <Mapping SourceColumn="rating" DataSetColumn="rating" />
+              <Mapping SourceColumn="tanggal_ulasan" DataSetColumn="tanggal_ulasan" />
+            </Mappings>
+            <Sources>
+              <DbSource ConnectionRef="db_drivenowConnectionString (Settings)" DbObjectType="Unknown" FillMethodModifier="Public" FillMethodName="FillBy" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="GetDataBy" GeneratorSourceName="FillBy" GetMethodModifier="Public" GetMethodName="GetDataBy" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy" UserSourceName="FillBy">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="true">
+                    <CommandText>SELECT 
+    ul.id_ulasan,
+    u.id_user,
+    m.id_mobil,
+    u.nama AS nama_pelanggan,
+    m.merk_mobil,
+    ul.komentar,
+    ul.rating,
+    ul.tanggal_ulasan
+FROM Ulasan ul
+JOIN Users u ON ul.id_user = u.id_user
+JOIN Mobil m ON ul.id_mobil = m.id_mobil
+</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </Sources>
+          </TableAdapter>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="UsersTableAdapter" GeneratorDataComponentClassName="UsersTableAdapter" Name="Users" UserDataComponentName="UsersTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="db_drivenowConnectionString (Settings)" DbObjectName="db_drivenow.dbo.Users" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetData" UserSourceName="Fill">
+                <DeleteCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>DELETE FROM [dbo].[Users] WHERE (([id_user] = @Original_id_user) AND ((@IsNull_nama = 1 AND [nama] IS NULL) OR ([nama] = @Original_nama)) AND ((@IsNull_email = 1 AND [email] IS NULL) OR ([email] = @Original_email)) AND ((@IsNull_password = 1 AND [password] IS NULL) OR ([password] = @Original_password)) AND ((@IsNull_role = 1 AND [role] IS NULL) OR ([role] = @Original_role)) AND ((@IsNull_urlfoto = 1 AND [urlfoto] IS NULL) OR ([urlfoto] = @Original_urlfoto)))</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@Original_id_user" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="id_user" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_nama" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="nama" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@Original_nama" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="nama" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_email" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="email" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@Original_email" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="email" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_password" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="password" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@Original_password" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="password" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_role" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="role" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@Original_role" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="role" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_urlfoto" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="urlfoto" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@Original_urlfoto" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="urlfoto" SourceColumnNullMapping="false" SourceVersion="Original" />
+                    </Parameters>
+                  </DbCommand>
+                </DeleteCommand>
+                <InsertCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>INSERT INTO [dbo].[Users] ([id_user], [nama], [email], [password], [role], [urlfoto]) VALUES (@id_user, @nama, @email, @password, @role, @urlfoto);
+SELECT id_user, nama, email, password, role, urlfoto FROM Users WHERE (id_user = @id_user)</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@id_user" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="id_user" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@nama" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="nama" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@email" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="email" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@password" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="password" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@role" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="role" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@urlfoto" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="urlfoto" SourceColumnNullMapping="false" SourceVersion="Current" />
+                    </Parameters>
+                  </DbCommand>
+                </InsertCommand>
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>SELECT id_user, nama, email, password, role, urlfoto FROM dbo.Users</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+                <UpdateCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>UPDATE [dbo].[Users] SET [id_user] = @id_user, [nama] = @nama, [email] = @email, [password] = @password, [role] = @role, [urlfoto] = @urlfoto WHERE (([id_user] = @Original_id_user) AND ((@IsNull_nama = 1 AND [nama] IS NULL) OR ([nama] = @Original_nama)) AND ((@IsNull_email = 1 AND [email] IS NULL) OR ([email] = @Original_email)) AND ((@IsNull_password = 1 AND [password] IS NULL) OR ([password] = @Original_password)) AND ((@IsNull_role = 1 AND [role] IS NULL) OR ([role] = @Original_role)) AND ((@IsNull_urlfoto = 1 AND [urlfoto] IS NULL) OR ([urlfoto] = @Original_urlfoto)));
+SELECT id_user, nama, email, password, role, urlfoto FROM Users WHERE (id_user = @id_user)</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@id_user" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="id_user" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@nama" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="nama" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@email" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="email" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@password" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="password" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@role" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="role" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@urlfoto" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="urlfoto" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@Original_id_user" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="id_user" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_nama" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="nama" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@Original_nama" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="nama" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_email" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="email" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@Original_email" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="email" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_password" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="password" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@Original_password" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="password" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_role" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="role" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@Original_role" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="role" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_urlfoto" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="urlfoto" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@Original_urlfoto" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="urlfoto" SourceColumnNullMapping="false" SourceVersion="Original" />
+                    </Parameters>
+                  </DbCommand>
+                </UpdateCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="id_user" DataSetColumn="id_user" />
+              <Mapping SourceColumn="nama" DataSetColumn="nama" />
+              <Mapping SourceColumn="email" DataSetColumn="email" />
+              <Mapping SourceColumn="password" DataSetColumn="password" />
+              <Mapping SourceColumn="role" DataSetColumn="role" />
+              <Mapping SourceColumn="urlfoto" DataSetColumn="urlfoto" />
+            </Mappings>
+            <Sources />
+          </TableAdapter>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="MonthlySummaryAdapter" GeneratorDataComponentClassName="MonthlySummaryAdapter" Name="MonthlySummary" UserDataComponentName="MonthlySummaryAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="db_drivenowConnectionString (Settings)" DbObjectType="Unknown" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="true">
+                    <CommandText>SELECT 
+    FORMAT(t.tanggal_transaksi, 'yyyy-MM') AS bulan,
+    COUNT(DISTINCT t.id_transaksi) AS total_transaksi,
+    COUNT(DISTINCT b.id_booking) AS total_booking,
+    SUM(t.total_pembayaran) AS total_pendapatan,
+    COUNT(DISTINCT ul.id_ulasan) AS total_ulasan
+FROM Transaksi t
+JOIN Booking b ON t.id_booking = b.id_booking
+LEFT JOIN Ulasan ul ON ul.id_user = t.id_user
+GROUP BY FORMAT(t.tanggal_transaksi, 'yyyy-MM')
+ORDER BY bulan
+</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="bulan" DataSetColumn="bulan" />
+              <Mapping SourceColumn="total_transaksi" DataSetColumn="total_transaksi" />
+              <Mapping SourceColumn="total_booking" DataSetColumn="total_booking" />
+              <Mapping SourceColumn="total_pendapatan" DataSetColumn="total_pendapatan" />
+              <Mapping SourceColumn="total_ulasan" DataSetColumn="total_ulasan" />
+            </Mappings>
+            <Sources />
+          </TableAdapter>
+        </Tables>
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="db_drivenow" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:Generator_UserDSName="db_drivenow" msprop:EnableTableAdapterManager="True" msprop:Generator_DataSetName="db_drivenow">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="Booking" msprop:Generator_RowEvHandlerName="BookingRowChangeEventHandler" msprop:Generator_RowDeletedName="BookingRowDeleted" msprop:Generator_RowDeletingName="BookingRowDeleting" msprop:Generator_RowEvArgName="BookingRowChangeEvent" msprop:Generator_TablePropName="Booking" msprop:Generator_RowChangedName="BookingRowChanged" msprop:Generator_UserTableName="Booking" msprop:Generator_RowChangingName="BookingRowChanging" msprop:Generator_RowClassName="BookingRow" msprop:Generator_TableClassName="BookingDataTable" msprop:Generator_TableVarName="tableBooking">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="id_booking" msprop:Generator_ColumnPropNameInTable="id_bookingColumn" msprop:Generator_ColumnPropNameInRow="id_booking" msprop:Generator_UserColumnName="id_booking" msprop:Generator_ColumnVarNameInTable="columnid_booking">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="6" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="tanggal_mulai" msprop:Generator_ColumnPropNameInTable="tanggal_mulaiColumn" msprop:Generator_ColumnPropNameInRow="tanggal_mulai" msprop:Generator_UserColumnName="tanggal_mulai" msprop:Generator_ColumnVarNameInTable="columntanggal_mulai" type="xs:dateTime" />
+              <xs:element name="tanggal_selesai" msprop:Generator_ColumnPropNameInTable="tanggal_selesaiColumn" msprop:Generator_ColumnPropNameInRow="tanggal_selesai" msprop:Generator_UserColumnName="tanggal_selesai" msprop:Generator_ColumnVarNameInTable="columntanggal_selesai" type="xs:dateTime" />
+              <xs:element name="durasi_hari" msprop:Generator_ColumnPropNameInTable="durasi_hariColumn" msprop:Generator_ColumnPropNameInRow="durasi_hari" msprop:Generator_UserColumnName="durasi_hari" msprop:Generator_ColumnVarNameInTable="columndurasi_hari" type="xs:int" minOccurs="0" />
+              <xs:element name="status_booking" msprop:Generator_ColumnPropNameInTable="status_bookingColumn" msprop:Generator_ColumnPropNameInRow="status_booking" msprop:Generator_UserColumnName="status_booking" msprop:Generator_ColumnVarNameInTable="columnstatus_booking" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="10" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="nama_pelanggan" msprop:Generator_ColumnPropNameInTable="nama_pelangganColumn" msprop:Generator_ColumnPropNameInRow="nama_pelanggan" msprop:Generator_UserColumnName="nama_pelanggan" msprop:Generator_ColumnVarNameInTable="columnnama_pelanggan">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="35" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="merk_mobil" msprop:Generator_ColumnPropNameInTable="merk_mobilColumn" msprop:Generator_ColumnPropNameInRow="merk_mobil" msprop:Generator_UserColumnName="merk_mobil" msprop:Generator_ColumnVarNameInTable="columnmerk_mobil">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="30" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Mobil" msprop:Generator_RowEvHandlerName="MobilRowChangeEventHandler" msprop:Generator_RowDeletedName="MobilRowDeleted" msprop:Generator_RowDeletingName="MobilRowDeleting" msprop:Generator_RowEvArgName="MobilRowChangeEvent" msprop:Generator_TablePropName="Mobil" msprop:Generator_RowChangedName="MobilRowChanged" msprop:Generator_UserTableName="Mobil" msprop:Generator_RowChangingName="MobilRowChanging" msprop:Generator_RowClassName="MobilRow" msprop:Generator_TableClassName="MobilDataTable" msprop:Generator_TableVarName="tableMobil">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="id_mobil" msprop:Generator_ColumnPropNameInTable="id_mobilColumn" msprop:Generator_ColumnPropNameInRow="id_mobil" msprop:Generator_UserColumnName="id_mobil" msprop:Generator_ColumnVarNameInTable="columnid_mobil">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="9" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="merk_mobil" msprop:Generator_ColumnPropNameInTable="merk_mobilColumn" msprop:Generator_ColumnPropNameInRow="merk_mobil" msprop:Generator_UserColumnName="merk_mobil" msprop:Generator_ColumnVarNameInTable="columnmerk_mobil" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="15" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="warna" msprop:Generator_ColumnPropNameInTable="warnaColumn" msprop:Generator_ColumnPropNameInRow="warna" msprop:Generator_UserColumnName="warna" msprop:Generator_ColumnVarNameInTable="columnwarna" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="15" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="kategori" msprop:Generator_ColumnPropNameInTable="kategoriColumn" msprop:Generator_ColumnPropNameInRow="kategori" msprop:Generator_UserColumnName="kategori" msprop:Generator_ColumnVarNameInTable="columnkategori" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="15" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="jenis_bbm" msprop:Generator_ColumnPropNameInTable="jenis_bbmColumn" msprop:Generator_ColumnPropNameInRow="jenis_bbm" msprop:Generator_UserColumnName="jenis_bbm" msprop:Generator_ColumnVarNameInTable="columnjenis_bbm" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="15" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="tipe_transmisi" msprop:Generator_ColumnPropNameInTable="tipe_transmisiColumn" msprop:Generator_ColumnPropNameInRow="tipe_transmisi" msprop:Generator_UserColumnName="tipe_transmisi" msprop:Generator_ColumnVarNameInTable="columntipe_transmisi" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="9" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="kapasitas" msprop:Generator_ColumnPropNameInTable="kapasitasColumn" msprop:Generator_ColumnPropNameInRow="kapasitas" msprop:Generator_UserColumnName="kapasitas" msprop:Generator_ColumnVarNameInTable="columnkapasitas" type="xs:unsignedByte" minOccurs="0" />
+              <xs:element name="harga_sewa_per_hari" msprop:Generator_ColumnPropNameInTable="harga_sewa_per_hariColumn" msprop:Generator_ColumnPropNameInRow="harga_sewa_per_hari" msprop:Generator_UserColumnName="harga_sewa_per_hari" msprop:Generator_ColumnVarNameInTable="columnharga_sewa_per_hari" type="xs:decimal" minOccurs="0" />
+              <xs:element name="status_mobil" msprop:Generator_ColumnPropNameInTable="status_mobilColumn" msprop:Generator_ColumnPropNameInRow="status_mobil" msprop:Generator_UserColumnName="status_mobil" msprop:Generator_ColumnVarNameInTable="columnstatus_mobil" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="15" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="url_foto_mobil" msprop:Generator_ColumnPropNameInTable="url_foto_mobilColumn" msprop:Generator_ColumnPropNameInRow="url_foto_mobil" msprop:Generator_UserColumnName="url_foto_mobil" msprop:Generator_ColumnVarNameInTable="columnurl_foto_mobil" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="255" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Pelanggan" msprop:Generator_RowEvHandlerName="PelangganRowChangeEventHandler" msprop:Generator_RowDeletedName="PelangganRowDeleted" msprop:Generator_RowDeletingName="PelangganRowDeleting" msprop:Generator_RowEvArgName="PelangganRowChangeEvent" msprop:Generator_TablePropName="Pelanggan" msprop:Generator_RowChangedName="PelangganRowChanged" msprop:Generator_UserTableName="Pelanggan" msprop:Generator_RowChangingName="PelangganRowChanging" msprop:Generator_RowClassName="PelangganRow" msprop:Generator_TableClassName="PelangganDataTable" msprop:Generator_TableVarName="tablePelanggan">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="id_user" msprop:Generator_ColumnPropNameInTable="id_userColumn" msprop:Generator_ColumnPropNameInRow="id_user" msprop:Generator_UserColumnName="id_user" msprop:Generator_ColumnVarNameInTable="columnid_user">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="6" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="alamat" msprop:Generator_ColumnPropNameInTable="alamatColumn" msprop:Generator_ColumnPropNameInRow="alamat" msprop:Generator_UserColumnName="alamat" msprop:Generator_ColumnVarNameInTable="columnalamat" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="no_hp" msprop:Generator_ColumnPropNameInTable="no_hpColumn" msprop:Generator_ColumnPropNameInRow="no_hp" msprop:Generator_UserColumnName="no_hp" msprop:Generator_ColumnVarNameInTable="columnno_hp" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="13" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="no_sim" msprop:Generator_ColumnPropNameInTable="no_simColumn" msprop:Generator_ColumnPropNameInRow="no_sim" msprop:Generator_UserColumnName="no_sim" msprop:Generator_ColumnVarNameInTable="columnno_sim" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="14" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="username" msprop:Generator_ColumnPropNameInTable="usernameColumn" msprop:Generator_ColumnPropNameInRow="username" msprop:Generator_UserColumnName="username" msprop:Generator_ColumnVarNameInTable="columnusername" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="15" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Staff" msprop:Generator_RowEvHandlerName="StaffRowChangeEventHandler" msprop:Generator_RowDeletedName="StaffRowDeleted" msprop:Generator_RowDeletingName="StaffRowDeleting" msprop:Generator_RowEvArgName="StaffRowChangeEvent" msprop:Generator_TablePropName="Staff" msprop:Generator_RowChangedName="StaffRowChanged" msprop:Generator_UserTableName="Staff" msprop:Generator_RowChangingName="StaffRowChanging" msprop:Generator_RowClassName="StaffRow" msprop:Generator_TableClassName="StaffDataTable" msprop:Generator_TableVarName="tableStaff">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="id_user" msprop:Generator_ColumnPropNameInTable="id_userColumn" msprop:Generator_ColumnPropNameInRow="id_user" msprop:Generator_UserColumnName="id_user" msprop:Generator_ColumnVarNameInTable="columnid_user">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="6" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="jabatan" msprop:Generator_ColumnPropNameInTable="jabatanColumn" msprop:Generator_ColumnPropNameInRow="jabatan" msprop:Generator_UserColumnName="jabatan" msprop:Generator_ColumnVarNameInTable="columnjabatan" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="20" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Transaksi" msprop:Generator_RowEvHandlerName="TransaksiRowChangeEventHandler" msprop:Generator_RowDeletedName="TransaksiRowDeleted" msprop:Generator_RowDeletingName="TransaksiRowDeleting" msprop:Generator_RowEvArgName="TransaksiRowChangeEvent" msprop:Generator_TablePropName="Transaksi" msprop:Generator_RowChangedName="TransaksiRowChanged" msprop:Generator_UserTableName="Transaksi" msprop:Generator_RowChangingName="TransaksiRowChanging" msprop:Generator_RowClassName="TransaksiRow" msprop:Generator_TableClassName="TransaksiDataTable" msprop:Generator_TableVarName="tableTransaksi">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="id_transaksi" msprop:Generator_ColumnPropNameInTable="id_transaksiColumn" msprop:Generator_ColumnPropNameInRow="id_transaksi" msprop:Generator_UserColumnName="id_transaksi" msprop:Generator_ColumnVarNameInTable="columnid_transaksi">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="6" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="id_booking" msprop:Generator_ColumnPropNameInTable="id_bookingColumn" msprop:Generator_ColumnPropNameInRow="id_booking" msprop:Generator_UserColumnName="id_booking" msprop:Generator_ColumnVarNameInTable="columnid_booking" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="6" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="id_user" msprop:Generator_ColumnPropNameInTable="id_userColumn" msprop:Generator_ColumnPropNameInRow="id_user" msprop:Generator_UserColumnName="id_user" msprop:Generator_ColumnVarNameInTable="columnid_user" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="6" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="tanggal_transaksi" msprop:Generator_ColumnPropNameInTable="tanggal_transaksiColumn" msprop:Generator_ColumnPropNameInRow="tanggal_transaksi" msprop:Generator_UserColumnName="tanggal_transaksi" msprop:Generator_ColumnVarNameInTable="columntanggal_transaksi" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="total_pembayaran" msprop:Generator_ColumnPropNameInTable="total_pembayaranColumn" msprop:Generator_ColumnPropNameInRow="total_pembayaran" msprop:Generator_UserColumnName="total_pembayaran" msprop:Generator_ColumnVarNameInTable="columntotal_pembayaran" type="xs:decimal" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Ulasan" msprop:Generator_RowEvHandlerName="UlasanRowChangeEventHandler" msprop:Generator_RowDeletedName="UlasanRowDeleted" msprop:Generator_RowDeletingName="UlasanRowDeleting" msprop:Generator_RowEvArgName="UlasanRowChangeEvent" msprop:Generator_TablePropName="Ulasan" msprop:Generator_RowChangedName="UlasanRowChanged" msprop:Generator_UserTableName="Ulasan" msprop:Generator_RowChangingName="UlasanRowChanging" msprop:Generator_RowClassName="UlasanRow" msprop:Generator_TableClassName="UlasanDataTable" msprop:Generator_TableVarName="tableUlasan">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="id_ulasan" msprop:Generator_ColumnPropNameInTable="id_ulasanColumn" msprop:Generator_ColumnPropNameInRow="id_ulasan" msprop:Generator_UserColumnName="id_ulasan" msprop:Generator_ColumnVarNameInTable="columnid_ulasan">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="6" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="id_user" msprop:Generator_ColumnPropNameInTable="id_userColumn" msprop:Generator_ColumnPropNameInRow="id_user" msprop:Generator_UserColumnName="id_user" msprop:Generator_ColumnVarNameInTable="columnid_user" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="6" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="id_mobil" msprop:Generator_ColumnPropNameInTable="id_mobilColumn" msprop:Generator_ColumnPropNameInRow="id_mobil" msprop:Generator_UserColumnName="id_mobil" msprop:Generator_ColumnVarNameInTable="columnid_mobil" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="9" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="komentar" msprop:Generator_ColumnPropNameInTable="komentarColumn" msprop:Generator_ColumnPropNameInRow="komentar" msprop:Generator_UserColumnName="komentar" msprop:Generator_ColumnVarNameInTable="columnkomentar" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="2147483647" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="rating" msprop:Generator_ColumnPropNameInTable="ratingColumn" msprop:Generator_ColumnPropNameInRow="rating" msprop:Generator_UserColumnName="rating" msprop:Generator_ColumnVarNameInTable="columnrating" type="xs:int" minOccurs="0" />
+              <xs:element name="tanggal_ulasan" msprop:Generator_ColumnPropNameInTable="tanggal_ulasanColumn" msprop:Generator_ColumnPropNameInRow="tanggal_ulasan" msprop:Generator_UserColumnName="tanggal_ulasan" msprop:Generator_ColumnVarNameInTable="columntanggal_ulasan" type="xs:dateTime" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Users" msprop:Generator_RowEvHandlerName="UsersRowChangeEventHandler" msprop:Generator_RowDeletedName="UsersRowDeleted" msprop:Generator_RowDeletingName="UsersRowDeleting" msprop:Generator_RowEvArgName="UsersRowChangeEvent" msprop:Generator_TablePropName="Users" msprop:Generator_RowChangedName="UsersRowChanged" msprop:Generator_UserTableName="Users" msprop:Generator_RowChangingName="UsersRowChanging" msprop:Generator_RowClassName="UsersRow" msprop:Generator_TableClassName="UsersDataTable" msprop:Generator_TableVarName="tableUsers">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="id_user" msprop:Generator_ColumnPropNameInTable="id_userColumn" msprop:Generator_ColumnPropNameInRow="id_user" msprop:Generator_UserColumnName="id_user" msprop:Generator_ColumnVarNameInTable="columnid_user">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="6" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="nama" msprop:Generator_ColumnPropNameInTable="namaColumn" msprop:Generator_ColumnPropNameInRow="nama" msprop:Generator_UserColumnName="nama" msprop:Generator_ColumnVarNameInTable="columnnama" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="35" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="email" msprop:Generator_ColumnPropNameInTable="emailColumn" msprop:Generator_ColumnPropNameInRow="email" msprop:Generator_UserColumnName="email" msprop:Generator_ColumnVarNameInTable="columnemail" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="password" msprop:Generator_ColumnPropNameInTable="passwordColumn" msprop:Generator_ColumnPropNameInRow="password" msprop:Generator_UserColumnName="password" msprop:Generator_ColumnVarNameInTable="columnpassword" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="32" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="role" msprop:Generator_ColumnPropNameInTable="roleColumn" msprop:Generator_ColumnPropNameInRow="role" msprop:Generator_UserColumnName="role" msprop:Generator_ColumnVarNameInTable="columnrole" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="9" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="urlfoto" msprop:Generator_ColumnPropNameInTable="urlfotoColumn" msprop:Generator_ColumnPropNameInRow="urlfoto" msprop:Generator_UserColumnName="urlfoto" msprop:Generator_ColumnVarNameInTable="columnurlfoto" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="255" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Pembayaran" msprop:Generator_RowEvHandlerName="PembayaranRowChangeEventHandler" msprop:Generator_RowDeletedName="PembayaranRowDeleted" msprop:Generator_RowDeletingName="PembayaranRowDeleting" msprop:Generator_RowEvArgName="PembayaranRowChangeEvent" msprop:Generator_TablePropName="Pembayaran" msprop:Generator_RowChangedName="PembayaranRowChanged" msprop:Generator_UserTableName="Pembayaran" msprop:Generator_RowChangingName="PembayaranRowChanging" msprop:Generator_RowClassName="PembayaranRow" msprop:Generator_TableClassName="PembayaranDataTable" msprop:Generator_TableVarName="tablePembayaran">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="id_pembayaran" msprop:Generator_ColumnPropNameInTable="id_pembayaranColumn" msprop:Generator_ColumnPropNameInRow="id_pembayaran" msprop:Generator_UserColumnName="id_pembayaran" msprop:Generator_ColumnVarNameInTable="columnid_pembayaran">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="6" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="id_transaksi" msprop:Generator_ColumnPropNameInTable="id_transaksiColumn" msprop:Generator_ColumnPropNameInRow="id_transaksi" msprop:Generator_UserColumnName="id_transaksi" msprop:Generator_ColumnVarNameInTable="columnid_transaksi" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="6" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="tanggal_pembayaran" msprop:Generator_ColumnPropNameInTable="tanggal_pembayaranColumn" msprop:Generator_ColumnPropNameInRow="tanggal_pembayaran" msprop:Generator_UserColumnName="tanggal_pembayaran" msprop:Generator_ColumnVarNameInTable="columntanggal_pembayaran" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="metode_pembayaran" msprop:Generator_ColumnPropNameInTable="metode_pembayaranColumn" msprop:Generator_ColumnPropNameInRow="metode_pembayaran" msprop:Generator_UserColumnName="metode_pembayaran" msprop:Generator_ColumnVarNameInTable="columnmetode_pembayaran" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="20" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="nama_bank_pengirim" msprop:Generator_ColumnPropNameInTable="nama_bank_pengirimColumn" msprop:Generator_ColumnPropNameInRow="nama_bank_pengirim" msprop:Generator_UserColumnName="nama_bank_pengirim" msprop:Generator_ColumnVarNameInTable="columnnama_bank_pengirim" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="bukti_pembayaran" msprop:Generator_ColumnPropNameInTable="bukti_pembayaranColumn" msprop:Generator_ColumnPropNameInRow="bukti_pembayaran" msprop:Generator_UserColumnName="bukti_pembayaran" msprop:Generator_ColumnVarNameInTable="columnbukti_pembayaran" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="255" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="status_pembayaran" msprop:Generator_ColumnPropNameInTable="status_pembayaranColumn" msprop:Generator_ColumnPropNameInRow="status_pembayaran" msprop:Generator_UserColumnName="status_pembayaran" msprop:Generator_ColumnVarNameInTable="columnstatus_pembayaran" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="15" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="id_booking" msprop:Generator_ColumnPropNameInTable="id_bookingColumn" msprop:Generator_ColumnPropNameInRow="id_booking" msprop:Generator_UserColumnName="id_booking" msprop:Generator_ColumnVarNameInTable="columnid_booking" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="6" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="nama_pelanggan" msprop:Generator_ColumnPropNameInTable="nama_pelangganColumn" msprop:Generator_ColumnPropNameInRow="nama_pelanggan" msprop:Generator_UserColumnName="nama_pelanggan" msprop:Generator_ColumnVarNameInTable="columnnama_pelanggan">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="35" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="MonthlySummary" msprop:Generator_RowEvHandlerName="MonthlySummaryRowChangeEventHandler" msprop:Generator_RowDeletedName="MonthlySummaryRowDeleted" msprop:Generator_RowDeletingName="MonthlySummaryRowDeleting" msprop:Generator_RowEvArgName="MonthlySummaryRowChangeEvent" msprop:Generator_TablePropName="MonthlySummary" msprop:Generator_RowChangedName="MonthlySummaryRowChanged" msprop:Generator_RowChangingName="MonthlySummaryRowChanging" msprop:Generator_TableClassName="MonthlySummaryDataTable" msprop:Generator_RowClassName="MonthlySummaryRow" msprop:Generator_TableVarName="tableMonthlySummary" msprop:Generator_UserTableName="MonthlySummary">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="bulan" msdata:ReadOnly="true" msprop:Generator_ColumnPropNameInRow="bulan" msprop:Generator_ColumnPropNameInTable="bulanColumn" msprop:Generator_ColumnVarNameInTable="columnbulan" msprop:Generator_UserColumnName="bulan" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="4000" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="total_transaksi" msdata:ReadOnly="true" msprop:Generator_ColumnPropNameInRow="total_transaksi" msprop:Generator_ColumnPropNameInTable="total_transaksiColumn" msprop:Generator_ColumnVarNameInTable="columntotal_transaksi" msprop:Generator_UserColumnName="total_transaksi" type="xs:int" minOccurs="0" />
+              <xs:element name="total_booking" msdata:ReadOnly="true" msprop:Generator_ColumnPropNameInRow="total_booking" msprop:Generator_ColumnPropNameInTable="total_bookingColumn" msprop:Generator_ColumnVarNameInTable="columntotal_booking" msprop:Generator_UserColumnName="total_booking" type="xs:int" minOccurs="0" />
+              <xs:element name="total_pendapatan" msdata:ReadOnly="true" msprop:Generator_ColumnPropNameInRow="total_pendapatan" msprop:Generator_ColumnPropNameInTable="total_pendapatanColumn" msprop:Generator_ColumnVarNameInTable="columntotal_pendapatan" msprop:Generator_UserColumnName="total_pendapatan" type="xs:decimal" minOccurs="0" />
+              <xs:element name="total_ulasan" msdata:ReadOnly="true" msprop:Generator_ColumnPropNameInRow="total_ulasan" msprop:Generator_ColumnPropNameInTable="total_ulasanColumn" msprop:Generator_ColumnVarNameInTable="columntotal_ulasan" msprop:Generator_UserColumnName="total_ulasan" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:Booking" />
+      <xs:field xpath="mstns:id_booking" />
+    </xs:unique>
+    <xs:unique name="Mobil_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:Mobil" />
+      <xs:field xpath="mstns:id_mobil" />
+    </xs:unique>
+    <xs:unique name="Pelanggan_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:Pelanggan" />
+      <xs:field xpath="mstns:id_user" />
+    </xs:unique>
+    <xs:unique name="Staff_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:Staff" />
+      <xs:field xpath="mstns:id_user" />
+    </xs:unique>
+    <xs:unique name="Transaksi_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:Transaksi" />
+      <xs:field xpath="mstns:id_transaksi" />
+    </xs:unique>
+    <xs:unique name="Ulasan_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:Ulasan" />
+      <xs:field xpath="mstns:id_ulasan" />
+    </xs:unique>
+    <xs:unique name="Users_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:Users" />
+      <xs:field xpath="mstns:id_user" />
+    </xs:unique>
+    <xs:unique name="Pembayaran_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:Pembayaran" />
+      <xs:field xpath="mstns:id_pembayaran" />
+    </xs:unique>
+  </xs:element>
+  <xs:annotation>
+    <xs:appinfo>
+      <msdata:Relationship name="FK__Pelanggan__id_us__4CA06362" msdata:parent="Users" msdata:child="Pelanggan" msdata:parentkey="id_user" msdata:childkey="id_user" msprop:Generator_UserParentTable="Users" msprop:Generator_UserChildTable="Pelanggan" msprop:Generator_RelationVarName="relationFK__Pelanggan__id_us__4CA06362" msprop:Generator_ChildPropName="GetPelangganRows" msprop:Generator_ParentPropName="UsersRow" msprop:Generator_UserRelationName="FK__Pelanggan__id_us__4CA06362" />
+      <msdata:Relationship name="FK__Staff__id_user__4F7CD00D" msdata:parent="Users" msdata:child="Staff" msdata:parentkey="id_user" msdata:childkey="id_user" msprop:Generator_UserParentTable="Users" msprop:Generator_UserChildTable="Staff" msprop:Generator_RelationVarName="relationFK__Staff__id_user__4F7CD00D" msprop:Generator_ChildPropName="GetStaffRows" msprop:Generator_ParentPropName="UsersRow" msprop:Generator_UserRelationName="FK__Staff__id_user__4F7CD00D" />
+      <msdata:Relationship name="FK__Transaksi__id_bo__5812160E" msdata:parent="Booking" msdata:child="Transaksi" msdata:parentkey="id_booking" msdata:childkey="id_booking" msprop:Generator_UserParentTable="Booking" msprop:Generator_UserChildTable="Transaksi" msprop:Generator_RelationVarName="relationFK__Transaksi__id_bo__5812160E" msprop:Generator_ChildPropName="GetTransaksiRows" msprop:Generator_UserRelationName="FK__Transaksi__id_bo__5812160E" msprop:Generator_ParentPropName="BookingRow" />
+      <msdata:Relationship name="FK__Transaksi__id_us__59063A47" msdata:parent="Users" msdata:child="Transaksi" msdata:parentkey="id_user" msdata:childkey="id_user" msprop:Generator_UserParentTable="Users" msprop:Generator_UserChildTable="Transaksi" msprop:Generator_RelationVarName="relationFK__Transaksi__id_us__59063A47" msprop:Generator_ChildPropName="GetTransaksiRows" msprop:Generator_ParentPropName="UsersRow" msprop:Generator_UserRelationName="FK__Transaksi__id_us__59063A47" />
+      <msdata:Relationship name="FK__Ulasan__id_mobil__5FB337D6" msdata:parent="Mobil" msdata:child="Ulasan" msdata:parentkey="id_mobil" msdata:childkey="id_mobil" msprop:Generator_UserParentTable="Mobil" msprop:Generator_UserChildTable="Ulasan" msprop:Generator_RelationVarName="relationFK__Ulasan__id_mobil__5FB337D6" msprop:Generator_ChildPropName="GetUlasanRows" msprop:Generator_UserRelationName="FK__Ulasan__id_mobil__5FB337D6" msprop:Generator_ParentPropName="MobilRow" />
+      <msdata:Relationship name="FK__Ulasan__id_user__5EBF139D" msdata:parent="Users" msdata:child="Ulasan" msdata:parentkey="id_user" msdata:childkey="id_user" msprop:Generator_UserParentTable="Users" msprop:Generator_UserChildTable="Ulasan" msprop:Generator_RelationVarName="relationFK__Ulasan__id_user__5EBF139D" msprop:Generator_ChildPropName="GetUlasanRows" msprop:Generator_ParentPropName="UsersRow" msprop:Generator_UserRelationName="FK__Ulasan__id_user__5EBF139D" />
+      <msdata:Relationship name="FK__Pembayara__id_tr__5BE2A6F2" msdata:parent="Transaksi" msdata:child="Pembayaran" msdata:parentkey="id_transaksi" msdata:childkey="id_transaksi" msprop:Generator_UserParentTable="Transaksi" msprop:Generator_UserChildTable="Pembayaran" msprop:Generator_RelationVarName="relationFK__Pembayara__id_tr__5BE2A6F2" msprop:Generator_ChildPropName="GetPembayaranRows" msprop:Generator_ParentPropName="TransaksiRow" msprop:Generator_UserRelationName="FK__Pembayara__id_tr__5BE2A6F2" />
+    </xs:appinfo>
+  </xs:annotation>
+</xs:schema>
