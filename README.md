@@ -20,6 +20,7 @@ It supports multi-role access such as **Staff** and **Customer**, allowing users
 ### 1. Clone the Repository
   ```bash
   git clone https://github.com/yeremiaimanuel/DriveNow-CarRentalApp.git
+
 2. Restore the Database
 - Open SQL Server Management Studio (SSMS)
 - Right-click Databases → Import Data-tier Application
