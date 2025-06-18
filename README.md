@@ -34,6 +34,7 @@ In DB/dbConnection.cs, modify the connection string:
 ---
 📄 License
 This project is open-source under the MIT License.
+---
 🔐 Login Form
 ![Login Form](https://github.com/user-attachments/assets/80124b54-843b-4e21-96f4-1ea797383ed9)
 👤 Customer Interface
