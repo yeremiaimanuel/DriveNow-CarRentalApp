@@ -1,24 +1,27 @@
 # 🚗 DriveNow – Car Rental Management System
 
-**DriveNow** is a car rental desktop application developed using **C# Windows Forms (.NET Framework)** with integration to **SQL Server** and **Crystal Reports**. It supports multi-role access such as Staff and Customer, allowing users to perform car bookings, manage vehicles, and view reports.
+**DriveNow** is a car rental desktop application developed using **C# Windows Forms (.NET Framework)** with integration to **SQL Server** and **Crystal Reports**.  
+It supports multi-role access such as **Staff** and **Customer**, allowing users to perform car bookings, manage vehicles, and view reports.
+
 ---
 
 ## 🛠️ Tech Stack
 
-- **C#** – Main programming language
-- **.NET Framework (Windows Forms)** – UI framework
-- **SQL Server** – Database management
-- **Crystal Reports** – For generating reports
-- **Visual Studio** – Development environment
+- **C#** – Main programming language  
+- **.NET Framework (Windows Forms)** – UI framework  
+- **SQL Server** – Database management  
+- **Crystal Reports** – For generating reports  
+- **Visual Studio** – Development environment  
 
 ---
 
 ## 🚀 Getting Started
 
-1. Clone the Repository
+### 1. Clone the Repository
 
 ```bash
 git clone https://github.com/yeremiaimanuel/DriveNow-CarRentalApp.git
+
 
 2. Restore the Database
 - Open SQL Server Management Studio (SSMS)
@@ -27,6 +30,7 @@ git clone https://github.com/yeremiaimanuel/DriveNow-CarRentalApp.git
 - Finish the wizard to create the db_drivenow database
 3. Configure the Connection
 In DB/dbConnection.cs, modify the connection string:
+
 ```bash
 string connectionString = "Data Source=YOUR_SERVER_NAME;Initial Catalog=db_drivenow;Integrated Security=True;TrustServerCertificate=True";
 
